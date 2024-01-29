@@ -1,66 +1,16 @@
--- Criação das tabelas
-CREATE TABLE IF NOT EXISTS usuarios (
-    id_usuario SERIAL PRIMARY KEY,
-    nome_usuario VARCHAR(255) NOT NULL,
-    cpf_usuario VARCHAR(11) UNIQUE NOT NULL,
-    endereco_usuario VARCHAR(255) NOT NULL,
-    telefone_usuario VARCHAR(15) NOT NULL,
-    email_usuario VARCHAR(255) UNIQUE NOT NULL,
-    senha_usuario VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS role (
-    id_role SERIAL PRIMARY KEY,
-    authority VARCHAR(50) NOT NULL UNIQUE
-);
-
-CREATE TABLE IF NOT EXISTS usuario_role (
-    id_usuario SERIAL,
-    id_role SERIAL,
-    PRIMARY KEY (id_usuario, id_role),
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
-    FOREIGN KEY (id_role) REFERENCES role(id_role)
-);
-
-CREATE TABLE IF NOT EXISTS empresas (
-    id_empresa SERIAL PRIMARY KEY,
-    nome_empresa VARCHAR(255) NOT NULL,
-    cnpj_empresa VARCHAR(14) UNIQUE NOT NULL,
-    endereco_empresa VARCHAR(255) NOT NULL,
-    telefone_empresa VARCHAR(15) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS produtos (
-    id_produto SERIAL PRIMARY KEY,
-    nome_produto VARCHAR(255) NOT NULL,
-    valor_produto DECIMAL(10, 2) NOT NULL,
-    avaliacao_produto INTEGER NOT NULL,
-    img_url VARCHAR(255),
-    descricao_produto TEXT
-);
-
-CREATE TABLE IF NOT EXISTS empresa_produto (
-    id_empresa SERIAL,
-    id_produto SERIAL,
-    PRIMARY KEY (id_empresa, id_produto),
-    FOREIGN KEY (id_empresa) REFERENCES empresas(id_empresa),
-    FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
-);
-
--- Inserção de dados
-
--- Inserir dados de usuários
 INSERT INTO usuarios (nome_usuario, cpf_usuario, endereco_usuario, telefone_usuario, email_usuario, senha_usuario)
 VALUES ('admin', '98765432109', '123, Rua Imaginária, Bairro Fictício, RJ', '21993614814', 'admin@chamanois.com', '$2y$10$8F64f1ZBZSL4nOygLqkhxutUBMgaXn.t7PeQwsfy0gWE5FQ7wvEwG');
+-- LOGIN: admin@chamanois.com
+-- SENHA: admin
 
 INSERT INTO usuarios (nome_usuario, cpf_usuario, endereco_usuario, telefone_usuario, email_usuario, senha_usuario)
 VALUES ('Marcos', '12345678909', '456, Avenida dos Sonhos, Bairro dos Ilusões, RJ', '21987654321', 'marcos@mail.com', '$2y$10$9BYLWbJKGB3vE8nGIKT04.hn0gkWC6Yuz2XKJ4j3/5N1SuirKtYW2');
+-- LOGIN: marcos@mail.com
+-- SENHA: marcos
 
--- Inserir dados de roles
 INSERT INTO role (authority) VALUES ('ROLE_COMUM');
 INSERT INTO role (authority) VALUES ('ROLE_ADMIN');
 
--- Inserir dados de relação entre usuários e roles
 INSERT INTO usuario_role (id_usuario, id_role) VALUES (1, 2);
 INSERT INTO usuario_role (id_usuario, id_role) VALUES (2, 1);
 
@@ -93,4 +43,5 @@ INSERT INTO empresa_produto (id_empresa, id_produto) VALUES
     (6, 3),  -- CodeCrafters -> Smartwatch ConnectX
     (7, 4),  -- DelíciasGourmet -> Cesta Gourmet Delight
     (5, 5),  -- SaúdeBio -> Kit Saúde Natural
-    (10, 6); -- ArtesanatoArte -> Escultura Artesanal;
+    (10, 6); -- ArtesanatoArte -> Escultura Artesanal
+
